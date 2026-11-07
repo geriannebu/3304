@@ -11,16 +11,16 @@ reg migrant lnpm25 female age agesq married urban lntj_dist lnsh_dist lnsz_dist 
 *(a, low skilled OLS)
 reg migrant lnpm25 female age agesq married urban lntj_dist lnsh_dist lnsz_dist if edu_high==0,r
 
-*(b, full sample 2SLS, IV, no controls)
+*(b, full sample 2SLS, IV)
 ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married urban edu_high lntj_dist lnsh_dist lnsz_dist, r first
 estat firststage
 
-*(b, high skilled 2SLS, IV, no controls)
+*(b, high skilled 2SLS, IV)
 ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married urban lntj_dist lnsh_dist lnsz_dist if edu_high==1, r first
 estat firststage
 
-*(b, low skilled 2SLS, IV, no controls)
-ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married urban lntj_dist lnsh_dist lnsz_dist if edu_high==1, r first
+*(b, low skilled 2SLS, IV)
+ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married urban lntj_dist lnsh_dist lnsz_dist if edu_high==0, r first
 estat firststage
 
 *(c, first stage regression, IV, ave_temp control)
@@ -51,7 +51,7 @@ ivregress 2sls migrant (lnpm25= thermalnum)female age agesq urban edu_high lntj_
 estat firststage
 
 *(d, unmarried 2SLS, IV, ave_temp control)
-ivregress 2sls migrant (lnpm25= thermalnum)female age agesq urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if married == 1, r first
+ivregress 2sls migrant (lnpm25= thermalnum)female age agesq urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if married == 0, r first
 estat firststage
 
 *(d, urban 2SLS, IV, ave_temp control)
@@ -59,7 +59,7 @@ ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married edu_high lnt
 estat firststage
 
 *(d, rural 2SLS, IV, ave_temp control)
-ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married edu_high lntj_dist lnsh_dist lnsz_dist avtemp if urban==1, r first
+ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married edu_high lntj_dist lnsh_dist lnsz_dist avtemp if urban==0, r first
 estat firststage
 
 log close
