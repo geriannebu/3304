@@ -1,4 +1,4 @@
-* EC3304 Research Assignment - Pollution and migration in China
+* EC3304 Research Assignment 
 
 clear all
 capture log close
@@ -6,9 +6,7 @@ cd "/Users/geriannebu/Library/Mobile Documents/com~apple~CloudDocs/Y4S1/EC3304/S
 log using "EC3304_results.log", replace text
 use pollution_mig_data.dta, clear
 
-* ssc install estout   // run once if esttab is not installed
-
-* Controls
+* Defining controls
 global X     "female age agesq married urban edu_high lntj_dist lnsh_dist lnsz_dist"
 global Xskill "female age agesq married urban lntj_dist lnsh_dist lnsz_dist"
 
