@@ -39,11 +39,11 @@ ivregress 2sls migrant (lnpm25= thermalnum)female age agesq married urban lntj_d
 estat firststage
 
 *(d, above 35 2SLS, IV, ave_temp control)
-ivregress 2sls migrant (lnpm25= thermalnum)female agesq married urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if age>35, r first
+ivregress 2sls migrant (lnpm25= thermalnum)female married urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if age>35, r first
 estat firststage
 
 *(d, less than or equal to 35 2SLS, IV, ave_temp control)
-ivregress 2sls migrant (lnpm25= thermalnum)female agesq married urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if age<=35, r first
+ivregress 2sls migrant (lnpm25= thermalnum)female married urban edu_high lntj_dist lnsh_dist lnsz_dist avtemp if age<=35, r first
 estat firststage
 
 *(d, married 2SLS, IV, ave_temp control)
