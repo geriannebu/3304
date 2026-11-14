@@ -1,0 +1,260 @@
+\documentclass[11pt]{article}
+
+% ---------- Packages ----------
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{float}          % [H] keeps each table at the top of its part
+\usepackage{caption}
+\usepackage{lipsum}         % placeholder text: delete when writing
+\usepackage{hyperref}
+
+\captionsetup{font=small,labelfont=bf}
+
+\title{EC3304 Research Assignment: Answers to Parts (a)--(d)}
+\author{Sherman Goh (A0281152M) \and Bu Rui Jia, Gerianne (A0281632H))}
+\date{Semester 1, 2026/27}
+
+\begin{document}
+\maketitle
+
+% =====================================================
+\section*{Part (a): OLS Estimates}
+\addcontentsline{toc}{section}{Part (a)}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{OLS Estimates of the Effect of PM2.5 on Migration}
+\label{tab:ols}
+\small
+\begin{tabular}{lccc}
+\toprule
+ & (1) & (2) & (3) \\
+ & Full sample & High-skilled & Low-skilled \\
+\midrule
+lnpm25 & $0.0449^{***}$ & $0.0499^{***}$ & $0.0414^{***}$ \\
+ & $(0.0105)$ & $(0.0158)$ & $(0.0109)$ \\
+female & $-0.0105^{***}$ & $-0.0137^{*}$ & $-0.0105^{***}$ \\
+ & $(0.0027)$ & $(0.0078)$ & $(0.0029)$ \\
+age & $-0.0001$ & $-0.0001$ & $0.0011$ \\
+ & $(0.0013)$ & $(0.0037)$ & $(0.0013)$ \\
+agesq & $-0.000047^{***}$ & $-0.000056$ & $-0.000060^{***}$ \\
+ & $(0.000016)$ & $(0.000048)$ & $(0.000016)$ \\
+married & $0.0459^{***}$ & $0.0498^{***}$ & $0.0477^{***}$ \\
+ & $(0.0051)$ & $(0.0147)$ & $(0.0052)$ \\
+urban & $-0.0360^{***}$ & $-0.1128^{***}$ & $-0.0293^{***}$ \\
+ & $(0.0058)$ & $(0.0179)$ & $(0.0055)$ \\
+edu\_high & $0.0081$ & -  & - \\
+ & $(0.0080)$ &  &  \\
+lntj\_dist & $0.0193^{***}$ & $0.0190^{***}$ & $0.0191^{***}$ \\
+ & $(0.0038)$ & $(0.0028)$ & $(0.0047)$ \\
+lnsh\_dist & $0.0043$ & $0.0137^{***}$ & $-0.0012$ \\
+ & $(0.0069)$ & $(0.0029)$ & $(0.0084)$ \\
+lnsz\_dist & $-0.0139^{***}$ & $0.0050$ & $-0.0209^{***}$ \\
+ & $(0.0051)$ & $(0.0041)$ & $(0.0065)$ \\
+Constant & $-0.0548$ & $-0.1801$ & $0.0167$ \\
+ & $(0.0923)$ & $(0.1094)$ & $(0.1091)$ \\
+\midrule
+Observations & 38,089 & 5,903 & 32,186 \\
+Clusters (cities) & 332 & 330 & 332 \\
+$R^2$ & 0.031 & 0.045 & 0.032 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item \textit{Notes:} Linear probability model; dependent variable is \texttt{migrant}. Standard errors clustered by city of origin (\texttt{City\_ID}) in parentheses. Columns (2) and (3) split the sample by \texttt{edu\_high}, so it is omitted as a control. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection*{(a)(1) Empirical Specification}
+\begin{equation}
+  \label{eq:ols}
+  \text{migrant}_{ic} = \beta_0 + \beta_1 \,\text{lnpm25}_c + \mathbf{X}_i'\boldsymbol{\gamma} + \mathbf{D}_c'\boldsymbol{\delta} + \varepsilon_{ic}
+\end{equation}
+where $\mathbf{X}_i$ is a vector of individual controls (\texttt{female}, \texttt{age}, \texttt{agesq}, \texttt{married}, \texttt{urban}, \texttt{edu\_high}) and $\mathbf{D}_c$ contains the log distances from city $c$ to the Tianjin, Shanghai and Shenzhen seaports (\texttt{lntj\_dist}, \texttt{lnsh\_dist}, \texttt{lnsz\_dist})\\
+
+\noindent The dependent variable is $migrant_{ic}$, while the dependent variable is $lnpm25_{c}$, with the control variables being $female_i, age_i, agesq_i, married_i, urban_i, edu\_high_i, lntj\_dist_c, lnsh\_dist_c\ \text{and}\ lnsz\_dist_c$.
+
+\subsection*{(a)(2)--(3) Results, Interpretation and Heterogeneity by Skill}
+The results of the regressions are summarised in Table 1. Regression 1 runs the full sample, while Regressions 2 and 3 splits the sample by \texttt{edu\_high}, thus it is left out as a control variable in the regression.\\
+
+\noindent Interpretation (Regression 1): A 1\% increase in the PM2.5 concentration in an individual's city of origin increases their probability of migrating out of their city of origin by 4.49 percentage points, holding all other factors constant.\\
+
+\noindent Interpretation (Regression 2 \& 3): When split by a worker being high or low skilled, A 1\% increase in the PM2.5 concentration in a high- skilled individual's city of origin increases their probability of migrating out of their city of origin by 4.99 percentage points, while the same percentage increase for a low-skilled individual's city of origin increases their probability of migrating out of their city of origin by 4.14 percentage points, hoilding all other factors constant.\\
+
+\noindent Based on the results, the increase in probability for migration is significant for both low and high skilled workers at the 1\% significance level. This suggests that indeed, higher skilled workers would have a higher probability of migrating out of polluted cities than those of lower skilled workers, suggesting the heterogeneity potentially exists in the data. This could be due to highly skilled workers having a better understanding of the potential health harms that pollution does to the body, and therefore they would choose to migrate out of highly polluted cities.
+
+
+% =====================================================
+\section*{Part (b): IV Estimates Using Thermal Inversions}
+\addcontentsline{toc}{section}{Part (b)}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{2SLS Estimates and First Stage: Thermal Inversions as an Instrument for PM2.5}
+\label{tab:iv}
+\small
+\begin{tabular}{lccc}
+\toprule
+ & (1) & (2) & (3) \\
+ & Full sample & High-skilled & Low-skilled \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel A: Second stage (dependent variable: migrant)}} \\
+lnpm25 & $0.1108^{***}$ & $0.1676^{***}$ & $0.1030^{***}$ \\
+ & $(0.0292)$ & $(0.0507)$ & $(0.0308)$ \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel B: First stage (dependent variable: lnpm25)}} \\
+thermalnum & $0.00183^{***}$ & $0.00151^{***}$ & $0.00186^{***}$ \\
+ & $(0.00025)$ & $(0.00026)$ & $(0.00026)$ \\
+First-stage $F$ (cluster-robust) & 52.13 & 32.42 & 51.42 \\
+%Partial $R^2$ & 0.198 & 0.145 & 0.201 \\
+\midrule
+Observations & 38,089 & 5,903 & 32,186 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item \textit{Notes:} \texttt{lnpm25} is instrumented with \texttt{thermalnum}. All regressions control for \texttt{female}, \texttt{age}, \texttt{agesq}, \texttt{married}, \texttt{urban}, \texttt{lntj\_dist}, \texttt{lnsh\_dist}, \texttt{lnsz\_dist}, and \texttt{edu\_high} in column (1). Standard errors clustered by city of origin in parentheses. The first-stage $F$ is the cluster-robust $F$ on the excluded instrument. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection*{(b)(1)--(2) IV and First-Stage Results}
+\begin{equation}
+\label{eq:ols}
+\text{lnpm25}_c = \pi_0 + \pi_1 \,\text{thermalnum}_c + \mathbf{X}_i'\boldsymbol{\lambda} + \mathbf{D}_c'\boldsymbol{\theta} + u_{ic}
+\end{equation}
+
+\begin{equation}
+\label{eq:ols}
+\text{migrant}_{ic} = \beta_0 + \beta_1 \,\widehat{\text{lnpm25}}_c + \mathbf{X}_i'\boldsymbol{\gamma} + \mathbf{D}_c'\boldsymbol{\delta} + \varepsilon_{ic}\end{equation}
+where $\mathbf{X}_i$ is a vector of individual controls (\texttt{female}, \texttt{age}, \texttt{agesq}, \texttt{married}, \texttt{urban}, \texttt{edu\_high}) and $\mathbf{D}_c$ contains the log distances from city $c$ to the Tianjin, Shanghai and Shenzhen seaports (\texttt{lntj\_dist}, \texttt{lnsh\_dist}, \texttt{lnsz\_dist}). $\widehat{\text{lnpm25}}_c$ is the fitted value from the first stage
+
+\noindent Equation 2 is the first stage regression of $lnpm25_c$ on the instrument $thermalnum_c$ while Equation 3 is the second stage regression of the 2SLS regression using the fitted values of $lnpm25_c$ from the first stage, to estimate the probability of an individual migrating due to pollution. Panel A of Table 2 shows the regression results for $lnpm25$ on the probability of migrating after it was instrumented on by $thermalnum$. Regression 1 runs the results for the full sample, while Regressions 2 and 3 splits the sample into high skilled workers and low skilled workers respectively. The first stage for each regression is also shown in Panel B of the same table.
+
+\subsection*{(b)(3) Interpretation}
+\noindent Interpretation (Regression 1): A 1\% increase in the PM2.5 concentration in an individual's city of origin increases their probability of migrating out of their city of origin by 11.08 percentage points, holding all other factors constant.\\
+
+\noindent Interpretation (Regression 2 \& 3): When split by a worker being high or low skilled, A 1\% increase in the PM2.5 concentration in a high- skilled individual's city of origin increases their probability of migrating out of their city of origin by 16.76 percentage points, while the same percentage increase for a low-skilled individual's city of origin increases their probability of migrating out of their city of origin by 10.30 percentage points, hoilding all other factors constant.\\
+
+\subsection*{(b)(4) Assumptions for IV Validity}
+\paragraph{Relevance.} We first make an argument for why the number of thermal inversions is related to the pollution level in cities. This is because when thermal inversion happens, the ground temperature is now lower and therefore pollutants cannot circulate and are trapped at ground level. Hence we can see that the higher the number of thermal inversions, it is likely that a city would be more polluted, hence $Cov(thermalnum, lnpm25)>0 $. We can also check for this in the data. we see from Table 2 that the first stage F statistic is non zero and large for all three regressions, which suggests that it is relevant and in fact a strong instrument for the level of pollution. 
+
+\paragraph{Exogeneity; Independence and Exclusion Restriction)} Then we talk about exogeneity. Firstly, we can argue that thermal inversions are as good as random because it is a meteorological phenomenon, and has no relations to traits that affect migration from cities. Therefore, $Cov(thermalnum, u) = 0$ \\
+
+\noindent Then we have to assume that the number of thermal inversions only affect migration decisions through the level of pollution and not through any other channels. This will be covered in part (c). \\
+
+% =====================================================https://www.overleaf.com/project/6aefd5b3f25252a5a3904201#
+\section*{Part (c): Controlling for Ground-Level Temperature}
+\addcontentsline{toc}{section}{Part (c)}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{2SLS Estimates Controlling for Average Ground-Level Temperature}
+\label{tab:iv_temp}
+\small
+\begin{tabular}{lccc}
+\toprule
+ & (1) & (2) & (3) \\
+ & Full sample & High-skilled & Low-skilled \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel A: Second stage (dependent variable: migrant)}} \\
+lnpm25 & $0.1158^{***}$ & $0.1627^{***}$ & $0.1059^{***}$ \\
+ & $(0.0262)$ & $(0.0443)$ & $(0.0275)$ \\
+avtemp & $0.00013$ & $-0.00009$ & $0.00008$ \\
+ & $(0.00015)$ & $(0.00020)$ & $(0.00018)$ \\
+\midrule
+\multicolumn{4}{l}{\textit{Panel B: First stage (dependent variable: lnpm25)}} \\
+thermalnum & $0.00209^{***}$ &  $0.00176^{***}$ & $0.00211^{***}$ \\
+ & $(0.00022)$ & $(0.00024)$ & $(0.00023)$ \\
+avtemp & $0.0037^{***}$ & $0.00032^{***}$ & $0.0039^{***}$ \\
+ & $(0.0007)$ & $(0.0007)$ & $(0.0007)$ \\
+First-stage $F$ (cluster-robust) & 86.18 & 52.58 & 85.32 \\
+Partial $R^2$ & 0.261 & 0.203 & 0.265 \\
+\midrule
+Observations & 38,089 & 5,903 & 32,186 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item \textit{Notes:} As in Table~\ref{tab:iv}, with \texttt{avtemp} added as a control in both stages. Standard errors clustered by city of origin in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection*{(c)(1) Addressing the Temperature Concern}
+\begin{equation}
+\label{eq:ols}
+\text{lnpm25}_c = \pi_0 + \pi_1 \,\text{thermalnum}_c + \mathbf{X}_i'\boldsymbol{\lambda} + \mathbf{D}_c'\boldsymbol{\theta} + u_{ic}
+\end{equation}
+
+\begin{equation}
+\label{eq:ols}
+\text{migrant}_{ic} = \beta_0 + \beta_1 \,\widehat{\text{lnpm25}}_c + \mathbf{X}_i'\boldsymbol{\gamma} + \mathbf{D}_c'\boldsymbol{\delta} + \varepsilon_{ic}\end{equation}
+where $\mathbf{X}_i$ is a vector of individual controls (\texttt{female}, \texttt{age}, \texttt{agesq}, \texttt{married}, \texttt{urban}, \texttt{edu\_high}) and $\mathbf{D}_c$ contains the log distances from city $c$ to the Tianjin, Shanghai and Shenzhen seaports (\texttt{lntj\_dist}, \texttt{lnsh\_dist}, \texttt{lnsz\_dist}) as well as the average ground temperature \texttt{avtemp}. $\widehat{\text{lnpm25}}_c$ is the fitted value from the first stage.\\
+
+\noindent Compared to the regressions in Table 2, the Regressions in Table 3 include a control for the average ground level temperature. Equation 4 is the first stage regression of $lnpm25_c$ on the instrument $thermalnum_c$ while Equation 5 is the second stage regression of the 2SLS regression using the fitted values of $lnpm25_c$ from the first stage, to estimate the probability of an individual migrating due to pollution. Panel A of Table 2 shows the regression results for $lnpm25$ on the probability of migrating after it was instrumented on by $thermalnum$. Regression 1 runs the results for the full sample, while Regressions 2 and 3 splits the sample into high skilled workers and low skilled workers respectively. The first stage for each regression is also shown in Panel B of the same table. All regressions in Table 3 controls for the \texttt{avtemp} variable.
+
+\subsection*{(c)(2) The New Validity Assumption}
+For the instrument to be valid, the exogeneity condition must be fulfilled. The average ground level temperature is used to construct the thermal inversion instrument, and therefore is directly correlated to the instrument. Not controlling for this variable will result in this variable residing the in the error term in both the first stage and second stage regressions, resulting in omitted variable bias.\\
+
+
+\noindent In this case once we control for the average ground temperature, we can say that under a similar given temperature, the number of thermal inversions only affect the migration decisions of individuals through the level of pollution. Formally, $Cov(\text{thermalnum}_c,u\ |\  \mathbf{X}_i',\ \text{avtemp}_c )=0$ Hence the exclusion restriction violation is now valid under a weaker assumption, and thus the number of thermal inversion a valid instrument. 
+
+% =====================================================
+\section*{Part (d): Heterogeneity Analysis}
+\addcontentsline{toc}{section}{Part (d)}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Heterogeneity in the Effect of PM2.5 on Migration (2SLS)}
+\label{tab:het}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{2}{c}{Age} & \multicolumn{2}{c}{Marital status} & \multicolumn{2}{c}{Birthplace} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+ & $>$35 & $\le$35 & Married & Unmarried & Urban & Rural \\
+\midrule
+\multicolumn{7}{l}{\textit{Panel A: Second stage (dependent variable: migrant)}} \\
+lnpm25 & $0.0804^{***}$ & $0.1674^{***}$ & $0.1159^{***}$ & $0.1137^{***}$ & $0.0931^{***}$ & $0.1332^{***}$ \\
+ & $(0.0236)$ & $(0.0346)$ & $(0.0289)$ & $(0.0252)$ & $(0.0230)$ & $(0.0357)$ \\
+\midrule
+\multicolumn{7}{l}{\textit{Panel B: First stage (dependent variable: lnpm25)}} \\
+thermalnum & $0.00200^{***}$ & $0.00224^{***}$ & $0.00205^{***}$ & $0.00223^{***}$ & $0.00186^{***}$ & $0.00222^{***}$ \\
+ & $(0.00022)$ & $(0.00024)$ & $(0.00021)$ & $(0.00030)$ & $(0.00022)$ & $(0.00026)$ \\
+First-stage $F$ (cluster-robust) & 82.69 & 87.86 & 92.44 & 53.97 & 73.91 & 74.35 \\
+\midrule
+Observations & 23,763 & 14,326 & 31,098 & 6,991 & 19,976 & 18,113 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item \textit{Notes:} All columns are 2SLS with \texttt{lnpm25} instrumented by \texttt{thermalnum} and include the controls from Table~\ref{tab:iv_temp}, including \texttt{avtemp}. Columns (1)--(2) keep \texttt{age} and \texttt{agesq}; columns (3)--(6) drop \texttt{married}, since it is constant within each subsample. Columns (5) and (6) are restricted to married individuals and split by \texttt{urban}, which is also dropped. Standard errors clustered by city of origin in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Table 4 reports the regression results when IV regression are performed on a subset of samples. Regressions 1 and 2 split the sample by Age, with the first group being those over the age of 35 and the second being those aged 35 or younger. Regressions 3 and 4 split the samples by whether the individual was married or not. Regressions 5 and 6 splits the \textbf{married} individual subset into whether they were born in an urban or rural region in the city. 
+\subsection*{(d)(1) Age: 35 or Younger vs Above 35}
+\noindent Interpretation (Regression 1 \& 2): When split by the age of a worker, A 1\% increase in the PM2.5 concentration in a city for a worker above 35 years old, increases their probability of migrating out of their city of origin by 8.04 percentage points, while the same percentage increase in a city for a worker aged 35 and below increases their probability of migrating out of their city of origin by 16.74 percentage points, hoilding all other factors constant.\\
+
+\noindent Based on the results, the increase in probability for migration is significant for workers aged above 35 and those 35 and younger at the 1\% significance level. This suggests that a greater proportion of those aged 35 and below would move out of their city of origin due to pollution as compared to those above the age of 35. This could be due to those aged 35 and above being already established in their careers and may have less incentives to move elsewhere despite increasing pollution levels, while those younger would have a much higher degree of freedom to choose whether they would want to embark on a career in a less polluted city.
+
+\subsection*{(d)(2) Married vs Unmarried}
+\noindent Interpretation (Regression 3 \& 4): When split by whether a worker was married or not, A 1\% increase in the PM2.5 concentration in a city for a married worker, increases their probability of migrating out of their city of origin by 11.59 percentage points, while the same percentage increase in a city for an unmarried worker increases their probability of migrating out of their city of origin by 11.37 percentage points, hoilding all other factors constant.\\
+
+\noindent Based on the results, the increase in probability for migration is significant for both married and unmarried workers at the 1\% significance level. A similar percentage of both Married and Unmarried workers would migrate out of their city of origin due to an increase in pollution levels. These results may not be surprising because pollution is a factor that harms all human health, regardless of whether they are married or not, thus we see a similar proportion of individuals choosing to migrate when pollution levels increase.  
+
+\subsection*{(d)(3) Married Individuals: Urban-Born vs Rural-Born}
+
+\noindent Interpretation (Regression 5 \& 6): When the married subset was split by whether a worker was born in a rural or urban area, A 1\% increase in the PM2.5 concentration in a city for a married worker born in a urban area, increases their probability of migrating out of their city of origin by 9.42 percentage points, while the same percentage increase in a city for a married worker born in a rural area increases their probability of migrating out of their city of origin by 13.50 percentage points, hoilding all other factors constant.\\
+
+\noindent Based on the results, the increase in probability for migration is significant for married workers born in both urban and rural regions at the 1\% significance level. Married workers born in rural regions have a higher probability of migrating due to pollution as compared to those that were born in rural regions. This could be due to those born in rural regions understand the value of clean air while growing up as a young adult, and because 
+married individuals have a higher likelyhood to start a family, an increase in pollution may affect their children's health, hence those born in rural regions value clean air more than those born in urban regions, hence have a higher probability of migrating due to increase in pollution.
+
+\end{document}
